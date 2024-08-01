@@ -14,5 +14,6 @@ def get_audio_duration(file_path):
     hours = int(duration // 3600)
     minutes = int((duration % 3600) // 60)
     seconds = int(duration % 60)
+    milliseconds = int((duration % 1) * 1000)
 
-    return hours, minutes, seconds
+    return hours, minutes, seconds, milliseconds

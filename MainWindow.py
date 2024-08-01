@@ -68,7 +68,7 @@ class MainWindow(QWidget):
         self.spn_lra.setRange(5, 20)
         self.spn_lra.setSingleStep(1)
         self.spn_lra.setDecimals(0)
-        self.spn_lra.setValue(11)
+        self.spn_lra.setValue(18)
 
         self.lbl_truePeak = QLabel()
         self.lbl_truePeak.setText(LBL.LBL_TRUE_PEAK)
@@ -216,21 +216,21 @@ class MainWindow(QWidget):
             self.tbl_fileTodo.setCellWidget(row, _FILE_PATH_COLUMN_, QLabel())
             self.tbl_fileTodo.cellWidget(row, _FILE_PATH_COLUMN_).setText(file)
 
-            hours, minutes, seconds = get_audio_duration(file)
+            hours, minutes, seconds, milliseconds = get_audio_duration(file)
 
             # START CUT
             self.tbl_fileTodo.setCellWidget(row, _START_CUT_COLUMN_, QTimeEdit())
-            self.tbl_fileTodo.cellWidget(row, _START_CUT_COLUMN_).setDisplayFormat("hh:mm:ss")
-            self.tbl_fileTodo.cellWidget(row, _START_CUT_COLUMN_).setTime(QTime(0, 0, 0))
-            self.tbl_fileTodo.cellWidget(row, _START_CUT_COLUMN_).setMinimumTime(QTime(0, 0, 0))
-            self.tbl_fileTodo.cellWidget(row, _START_CUT_COLUMN_).setMaximumTime(QTime(hours, minutes, seconds - 1))
+            self.tbl_fileTodo.cellWidget(row, _START_CUT_COLUMN_).setDisplayFormat("hh:mm:ss.zzz")
+            self.tbl_fileTodo.cellWidget(row, _START_CUT_COLUMN_).setTime(QTime(0, 0, 0, 0))
+            self.tbl_fileTodo.cellWidget(row, _START_CUT_COLUMN_).setMinimumTime(QTime(0, 0, 0, 0))
+            self.tbl_fileTodo.cellWidget(row, _START_CUT_COLUMN_).setMaximumTime(QTime(hours, minutes, seconds - 1, milliseconds))
 
             # END CUT
             self.tbl_fileTodo.setCellWidget(row, _END_CUT_COLUMN_, QTimeEdit())
-            self.tbl_fileTodo.cellWidget(row, _END_CUT_COLUMN_).setDisplayFormat("hh:mm:ss")
-            self.tbl_fileTodo.cellWidget(row, _END_CUT_COLUMN_).setTime(QTime(hours, minutes, seconds))
-            self.tbl_fileTodo.cellWidget(row, _END_CUT_COLUMN_).setMinimumTime(QTime(0, 0, 1))
-            self.tbl_fileTodo.cellWidget(row, _END_CUT_COLUMN_).setMaximumTime(QTime(hours, minutes, seconds))
+            self.tbl_fileTodo.cellWidget(row, _END_CUT_COLUMN_).setDisplayFormat("hh:mm:ss.zzz")
+            self.tbl_fileTodo.cellWidget(row, _END_CUT_COLUMN_).setTime(QTime(hours, minutes, seconds, milliseconds))
+            self.tbl_fileTodo.cellWidget(row, _END_CUT_COLUMN_).setMinimumTime(QTime(0, 0, 1, 0))
+            self.tbl_fileTodo.cellWidget(row, _END_CUT_COLUMN_).setMaximumTime(QTime(hours, minutes, seconds, milliseconds))
 
             # LOADING
             self.tbl_fileTodo.setCellWidget(row, _LOADING_COLUMN_, QProgressBar())
