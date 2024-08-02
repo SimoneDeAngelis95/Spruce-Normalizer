@@ -66,7 +66,7 @@ class normalizationThread(QThread):
             #cmd_str = ' '.join(cmd)  # Converti la lista cmd in una stringa
             #print(cmd_str)
             
-            process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, creationflags=subprocess.CREATE_NO_WINDOW)
             
             while process.poll() is None:
                 pass
