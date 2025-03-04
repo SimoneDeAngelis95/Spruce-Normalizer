@@ -3,6 +3,7 @@ from PyQt6.QtCore import pyqtSignal
 import globalVariables as GV
 import subprocess
 import os
+import platform
 
 class normalizationThread(QThread):
     finished = pyqtSignal(bool)
@@ -66,7 +67,10 @@ class normalizationThread(QThread):
             #cmd_str = ' '.join(cmd)  # Converti la lista cmd in una stringa
             #print(cmd_str)
             
-            process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, creationflags=subprocess.CREATE_NO_WINDOW)
+            if platform.system() == 'Darwin' or platform.system() == 'Linux':
+                process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            elif platform.system() == 'Windows':
+                process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, creationflags=subprocess.CREATE_NO_WINDOW) # creationflags=subprocess.CREATE_NO_WINDOW indispensabile per non far apparire la finestra di terminale su windows. Su macOS non è obbligatorio
             
             while process.poll() is None:
                 pass
