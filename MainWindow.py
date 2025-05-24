@@ -44,7 +44,7 @@ class MainWindow(QWidget):
 
         self.indexMastering = 0 # variabile che mi conta in quale punto della tabella sono
 
-        self.setWindowTitle(GV.APP_NAME)
+        self.setWindowTitle(GV.APP_NAME + " " + GV.APP_VERSION)
         self.setMinimumHeight(_MIN_HEIGHT_)
         self.setMinimumWidth(_MIN_WIDTH_)
 

@@ -2,13 +2,14 @@ import os
 import platform
 
 APP_NAME = "Spruce Normalizer"
+APP_VERSION = "1.2.2"
 ICON_PATH = "./logo.ico"
 
 REMOVE_BTN_IMG_PATH = "./remove.png"
 INFO_BTN_IMG_PATH = "./info.png"
 
-ALLOWED_EXTENSIONS = [".mp3", ".wav"]
-ALLOWED_EXTENSIONS_FILTER = "MP3 Files (*.mp3);;WAV Files (*.wav)"
+ALLOWED_EXTENSIONS = [".wav", ".mp3"]
+ALLOWED_EXTENSIONS_FILTER = "WAV Files (*.wav);;MP3 Files (*.mp3)"
 
 ALLOWED_FC = ["44100 Hz", "48000 Hz"]
 
