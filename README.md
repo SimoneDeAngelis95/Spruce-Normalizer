@@ -36,6 +36,7 @@ It uses **LUFS** (Loudness Units relative to Full Scale), **LRA** (Loudness Rang
 ## Screenshot
 
 Here’s a preview of the graphical interface:
+![Screenshot of Spruce Normalizer](docs/screenshot.png)
 
 ---
 
