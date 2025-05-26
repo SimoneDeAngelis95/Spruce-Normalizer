@@ -1,32 +1,39 @@
-import globalVariables as GV
+# =====================================================================
+def add_src_prefix(path): # helper function to add 'src/' prefix to paths
+    return f'src/{path}'
+# =====================================================================
+
+import src.globalVariables as GV
 from cx_Freeze import setup, Executable
 
-# Sostituisci 'tuo_script.py' con il nome del tuo script principale
-script = 'main.py'
-icon_path = GV.ICON_PATH
+script = 'src/main.py'
+icon_path = add_src_prefix(GV.ICON_PATH)
 
-# Configurazione di cx_Freeze
 options = {
     'build_exe': {
-        'packages': [],  # Lista dei moduli da includere
-        'include_files': [GV.REMOVE_BTN_IMG_PATH, GV.ICON_PATH, GV.INFO_BTN_IMG_PATH, GV.FFMPEG_PATH],  # Lista di file aggiuntivi da includere
+        'packages': [],
+        'include_files': [
+            add_src_prefix(GV.REMOVE_BTN_IMG_PATH),
+            add_src_prefix(GV.ICON_PATH),
+            add_src_prefix(GV.INFO_BTN_IMG_PATH),
+            add_src_prefix(GV.FFMPEG_PATH)
+        ],
     },
 }
 
-# Definizione dell'eseguibile
+# define the executables
 executables = [
     Executable(
         script,
-        base="Win32GUI", # per forzare l'app a non essere aperta da terminale
+        base="Win32GUI", # Use "Win32GUI" to avoid a console window
         icon=icon_path
     )
 ]
 
-# Chiamata a setup
 setup(
-    name='Spruce Normalizer',
-    version='1.0.1',
-    description='',
+    name=GV.APP_NAME,
+    version=GV.APP_VERSION,
+    description='Audio normalization tool',
     options=options,
     executables=executables
 )

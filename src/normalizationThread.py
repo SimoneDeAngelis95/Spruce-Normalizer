@@ -64,22 +64,19 @@ class normalizationThread(QThread):
                 self.bit,
                 outPath
             ]
-            #cmd_str = ' '.join(cmd)  # Converti la lista cmd in una stringa
+            #cmd_str = ' '.join(cmd)  # FOR DEBUG: Convert the command to a string for debugging purposes
             #print(cmd_str)
             
             if platform.system() == 'Darwin' or platform.system() == 'Linux':
                 process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             elif platform.system() == 'Windows':
-                process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, creationflags=subprocess.CREATE_NO_WINDOW) # creationflags=subprocess.CREATE_NO_WINDOW indispensabile per non far apparire la finestra di terminale su windows. Su macOS non è obbligatorio
+                process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, creationflags=subprocess.CREATE_NO_WINDOW) # creationflags=subprocess.CREATE_NO_WINDOW flag is used to prevent a console window from appearing on Windows not needed on macOS/Linux
             
             while process.poll() is None:
                 pass
-                #print("Waiting...")
-                #os.system('clear')
+                #print("Waiting...")  # FOR DEBUG: show that the process is running
+                #os.system('clear')   # FOR DEBUG: clear the console output to avoid cluttering it with "Waiting..." messages
             
-            #stdout = process.communicate() # devo catturare comunque l'output altrimenti si blocca, ma a quanto pare no
-            #print(stdout)
-
             if process.returncode == 0:
                 self.finished.emit(True)
             else:

@@ -42,7 +42,7 @@ class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.indexMastering = 0 # variabile che mi conta in quale punto della tabella sono
+        self.indexMastering = 0                                                  # variable to keep track of the current row being processed in the mastering queue
 
         self.setWindowTitle(GV.APP_NAME + " " + GV.APP_VERSION)
         self.setMinimumHeight(_MIN_HEIGHT_)
@@ -108,7 +108,7 @@ class MainWindow(QWidget):
         self.txt_postfix = QLineEdit()
         self.txt_postfix.setText(LBL.TXT_POSTFIX)
         
-        pattern = r'^[^\\/:*?"<>|]*$'                   # filtro tutti i caratteri vietati come nomi delle cartelle
+        pattern = r'^[^\\/:*?"<>|]*$'                   # regex to allow any character except: \ / : * ? " < > | (special characters that cannot be used in file names)
         regex = QRegularExpression(pattern)
         validator = QRegularExpressionValidator(regex)
         self.txt_postfix.setValidator(validator)
@@ -244,7 +244,7 @@ class MainWindow(QWidget):
     def removeFileTodo(self):
         buttonSender = self.sender()
         index = 0
-        for index in range(self.tbl_fileTodo.rowCount()): # scroll all the table to find my check box sender and so spot the row
+        for index in range(self.tbl_fileTodo.rowCount()):                                                 # scroll all the table to find my check box sender and so spot the row
             if(self.tbl_fileTodo.cellWidget(index, _REMOVE_COLUMN_) == buttonSender):
                 break
         self.tbl_fileTodo.removeRow(index)
@@ -253,13 +253,13 @@ class MainWindow(QWidget):
 
 
     # ====== DRAG & DROP ======
-    def dragEnterEvent(self, event: QDragEnterEvent):          # evento che un file (o cartella) è trascinato sul widget ma non ancora rilasciato
+    def dragEnterEvent(self, event: QDragEnterEvent):                                                     # event that is called when a file (or folder) is dragged over the window without releasing it
         if event.mimeData().hasUrls():
             event.acceptProposedAction()
         else:
             event.ignore()
 
-    def dropEvent(self, event: QDropEvent):                    # il file (o cartella) è stato rilasciato
+    def dropEvent(self, event: QDropEvent):                                                               # the file (or folder) is dropped on the window
         paths = event.mimeData().urls()
 
         for path in paths:
@@ -330,13 +330,13 @@ class MainWindow(QWidget):
 
     def sendNextFileToMastering(self, row):
         path = self.tbl_fileTodo.cellWidget(row, _FILE_PATH_COLUMN_).text()
-        title = Path(self.tbl_fileTodo.cellWidget(row, _FILE_PATH_COLUMN_).text()).stem + self.txt_postfix.text() # estrae il nome del file rimuovendo l'estensione ed aggiungo il postfix
+        title = Path(self.tbl_fileTodo.cellWidget(row, _FILE_PATH_COLUMN_).text()).stem + self.txt_postfix.text() # extract the file name without extension and add the postfix
         outPath = self.txt_exportPath.text()
         loudness = self.spn_loudness.value()
         lra = self.spn_lra.value()
         truePeak = self.spn_truePeak.value()
-        extension = self.cmb_extension.currentText()[1:] # tolgo il punto iniziale
-        fc = self.cmb_fc.currentText()[:-3] # tolgo " Hz"
+        extension = self.cmb_extension.currentText()[1:] # remove the dot from the extension
+        fc = self.cmb_fc.currentText()[:-3]              # remove the " Hz" from the end of the string
         if extension == "wav":
             bit = self.cmb_bit.currentText()[:-4]
         elif extension == "mp3":
@@ -397,7 +397,6 @@ class MainWindow(QWidget):
         while self.tbl_fileTodo.rowCount() != 0:
             self.tbl_fileTodo.removeRow(0)
 
-    # elimina tutti gli elementi della tabella tranne il primo che sta normalizzando
-    def cancelQueue(self):
+    def cancelQueue(self):                                       # remove all the rows in the table, so the queue is empty except the first one that is processing
         while self.tbl_fileTodo.rowCount() != 1:
             self.tbl_fileTodo.removeRow(1)

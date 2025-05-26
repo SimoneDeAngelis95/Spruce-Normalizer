@@ -18,7 +18,7 @@ ALLOWED_BIT_RATE = ["320 kbps", "256 kbps", "192 kbps", "128 kbps", "96 kbps", "
 
 
 if platform.system() == 'Darwin' or platform.system() == 'Linux':
-    DEFAULT_DIRECTORY = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop') # DEFAULT_DIRECTORY
+    DEFAULT_DIRECTORY = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')   # DEFAULT_DIRECTORY
     FFMPEG_PATH = "./ffmpeg" # FFMPEG
 elif platform.system() == 'Windows':
     DEFAULT_DIRECTORY = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop') # DEFAULT_DIRECTORY

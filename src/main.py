@@ -9,7 +9,7 @@ app.setApplicationName(GV.APP_NAME)
 
 myWindow = MainWindow()
 
-# per centrare la finestra
+# center the window on the screen
 screenGeometry = QGuiApplication.primaryScreen().availableGeometry()
 windowGeometry = myWindow.frameGeometry()
 windowGeometry.moveCenter(screenGeometry.center())
